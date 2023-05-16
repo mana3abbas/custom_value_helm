@@ -25,36 +25,33 @@ pipeline {
             }
         }
            stage('deploy') {
-           steps {
-            withCredentials([file(credentialsId: 'kubeconfig-credi', variable: 'KUBECONFIG')])
-            { 
-                if(deploy.equals('dev'))
-                {
-            sh """
-                echo "Running Helm"
-                helm install dev${BUILD_NUMBER} ./HELM/onboard-task --values dev.yaml
-               """
-            }
-               if(deploy.equals('test'))
-             {
-            sh """
-                echo "Running Helm"
-                helm install test${BUILD_NUMBER} ./HELM/onboard-task --values test.yaml
-               """
+                    steps {
+                      withCredentials([file(credentialsId: 'kubeconfig-credi', variable: 'KUBECONFIG')])
+                           { 
+                             if(deploy.equals('dev'))
+                              {
+                                  sh """
+                                    echo "Running Helm"
+                                   helm install dev${BUILD_NUMBER} ./HELM/onboard-task --values dev.yaml
+                                    """
+                               }
+                            if(deploy.equals('test'))
+                              {
+                                 sh """
+                                    echo "Running Helm"
+                                   helm install test${BUILD_NUMBER} ./HELM/onboard-task --values test.yaml
+                                   """
+                               }
+                         else(deploy.equals('test'))
+                              {
+                               sh """
+                                 echo "Running Helm"
+                                 helm install prod${BUILD_NUMBER} ./HELM/onboard-task --values prod.yaml
+                                  """
+                              }
 
-             }
-             else(deploy.equals('test'))
-             {
-            sh """
-                echo "Running Helm"
-                helm install prod${BUILD_NUMBER} ./HELM/onboard-task --values prod.yaml
-               """
-
-             }
-
-            }
-           }
-      }
-        
+                         }
+                    }
+               }
     }
 }
