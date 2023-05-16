@@ -25,17 +25,17 @@ pipeline {
          choice(name: 'build', choices: [dev,test,prod], description: 'choose a value')
        }
         
-            stage('build') {
+            stage('deploy') {
            steps {
             withCredentials([file(credentialsId: 'kubeconfig-credi', variable: 'KUBECONFIG')])
             { 
-                if(build.equals('dev')){
+                if(deploy.equals('dev')){
             sh """
                 echo "Running Helm"
                 helm install dev${BUILD_NUMBER} ./HELM/onboard-task --values dev.yaml
                """
             }
-               if(build.equals('test'))
+               if(deploy.equals('test'))
              {
             sh """
                 echo "Running Helm"
@@ -43,7 +43,7 @@ pipeline {
                """
 
              }
-             else(build.equals('test'))
+             else(deploy.equals('test'))
              {
             sh """
                 echo "Running Helm"
