@@ -13,13 +13,13 @@ pipeline {
                             docker login -u $USERNAME -p $PASSWORD
                             docker build -t monasamir/server:b${BUILD_NUMBER} -f $WORKSPACE/badreads-backend/Dockerfile  
                             docker push monasamir/server:b${BUILD_NUMBER} 
-                       """
+                          """
                    
                        sh """
                             docker login -u $USERNAME -p $PASSWORD
                             docker build -t monasamir/client:v${BUILD_NUMBER} -f $WORKSPACE/badreads-frontend/Dockerfile  
                             docker push monasamir/client:b${BUILD_NUMBER}
-                       """
+                          """
                    }
                 }
             }
@@ -39,7 +39,7 @@ pipeline {
                              else if(deploy.equals('test'))
                               {
                                  sh """
-                                    echo "Running Helm"
+                                   echo "Running Helm"
                                    helm install test${BUILD_NUMBER} ./HELM/onboard-task --values test.yaml
                                    """
                                }
