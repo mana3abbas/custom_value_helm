@@ -24,10 +24,10 @@ pipeline {
                 }
             }
         }
-           stage('deploy') {
-                      steps {
-                            script {
-                      withCredentials([file(credentialsId: 'kubeconfig-credi', variable: 'KUBECONFIG')])
+        stage('deploy') {
+                steps {          
+                  script {
+                    withCredentials([file(credentialsId: 'kubeconfig-credi', variable: 'KUBECONFIG')])
                             { 
                              if(deploy.equals('dev'))
                                 {
@@ -57,9 +57,9 @@ pipeline {
                                  echo "done"
                                   """
                               }
-                         }
-                    }
-               }
-             }
-           }
+                     }
+                }
+            }
+        }
+    }  
 }
