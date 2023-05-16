@@ -1,0 +1,7 @@
+replicaCount: 2
+service:
+  type: NodePort
+  port: 3000
+  targetPort: 3000
+  protocol: TCP
+  nodePort: 30057 
