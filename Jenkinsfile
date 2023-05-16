@@ -24,13 +24,12 @@ pipeline {
                 }
             }
         }
-           
-        
-            stage('deploy') {
+           stage('deploy') {
            steps {
             withCredentials([file(credentialsId: 'kubeconfig-credi', variable: 'KUBECONFIG')])
             { 
-                if(deploy.equals('dev')){
+                if(deploy.equals('dev'))
+                {
             sh """
                 echo "Running Helm"
                 helm install dev${BUILD_NUMBER} ./HELM/onboard-task --values dev.yaml
