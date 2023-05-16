@@ -42,14 +42,20 @@ pipeline {
                                    helm install test${BUILD_NUMBER} ./HELM/onboard-task --values test.yaml
                                    """
                                }
-                         else(deploy.equals('test'))
+                         else if(deploy.equals('test'))
                               {
                                sh """
                                  echo "Running Helm"
                                  helm install prod${BUILD_NUMBER} ./HELM/onboard-task --values prod.yaml
                                   """
                               }
-
+                               
+                             else
+                              {
+                               sh """
+                                 echo "done"
+                                  """
+                              }
                          }
                     }
                }
