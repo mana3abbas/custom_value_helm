@@ -25,7 +25,7 @@ pipeline {
             }
         }
         stage('deploy') {
-                       
+                script {
                     withCredentials([file(credentialsId: 'kubeconfig-credi', variable: 'KUBECONFIG')])
                       { 
                           when { 
@@ -36,7 +36,8 @@ pipeline {
                                     echo "Running Helm"
                                    helm install dev${BUILD_NUMBER} ./HELM/onboard-task --values dev.yaml
                                     """
-                         }  
+                         } 
+                      }
                 }
         }
     }  
