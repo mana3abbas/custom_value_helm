@@ -32,9 +32,10 @@ pipeline {
                       { 
                          if (params.DEPLOY == 'dev')
                                 {
+                                  sh 'cd HELM'  
+                                  sh 'pwd'
                                   sh """
                                     echo "Running Helm"
-                                    pwd 
                                    helm install dev${BUILD_NUMBER} ./HELM/onboard-task --values /HELM/onboard-task/dev.yaml
                                     """
                                }
