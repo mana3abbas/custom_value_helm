@@ -1,8 +1,9 @@
 pipeline {
     agent { label 'jenkins-slave' }
       parameters {
-         choice(name: 'build', choices: ["dev","test","prod"], description: 'choose a value')
+          choice choices: ['dev', 'test', 'prod'], description: 'pick one ', name: 'DEPLOY'
        }
+
     stages {
         stage('build') {
             steps {
@@ -25,20 +26,20 @@ pipeline {
             }
         }
         stage('deploy') {
+            steps {
                 script {
                     withCredentials([file(credentialsId: 'kubeconfig-credi', variable: 'KUBECONFIG')])
                       { 
-                          when { 
-                              deploy'dev'
-                          }
-                                steps {
+                         if (paramas.DEPLOY == 'dev')
+                                {
                                   sh """
                                     echo "Running Helm"
                                    helm install dev${BUILD_NUMBER} ./HELM/onboard-task --values dev.yaml
                                     """
-                         } 
+                               }
                       }
                 }
+            }
         }
     }  
 }
