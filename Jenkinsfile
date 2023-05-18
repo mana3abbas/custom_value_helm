@@ -29,7 +29,7 @@ pipeline {
                   script {
                     withCredentials([file(credentialsId: 'kubeconfig-credi', variable: 'KUBECONFIG')])
                       { 
-                             if (deploy.dev)
+                             if (params.dev)
                                 {
                                   sh """
                                     echo "Running Helm"
