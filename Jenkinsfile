@@ -32,7 +32,7 @@ pipeline {
                       { 
                          if (params.DEPLOY == 'dev')
                                 {
-                                  sh 'cd ./HELM'  
+                                  sh 'cd HELM'  
                                   sh 'pwd'
                                   sh """
                                     echo "Running Helm"
