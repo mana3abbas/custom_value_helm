@@ -34,6 +34,8 @@ pipeline {
                                 {
                                   sh """
                                     echo "Running Helm"
+                                    cd /HELM/onboard-task 
+                                    pwd 
                                    helm install dev${BUILD_NUMBER} ./HELM/onboard-task --values /HELM/onboard-task/dev.yaml
                                     """
                                }
